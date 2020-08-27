@@ -1,0 +1,59 @@
+﻿@model demo.Models.client_files
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>client_files</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.content_type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.content_type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.data)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.data)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.checked_file)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.checked_file)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.client_data.first_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.client_data.first_name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

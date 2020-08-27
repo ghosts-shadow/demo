@@ -1,0 +1,71 @@
+﻿@model IEnumerable<demo.Models.client_files>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var webGrid = new WebGrid(source: Model);
+}
+
+<h2>uploaded files</h2>
+<meta name="viewport" content="width=device-width"/>
+<title>Index</title>
+<style type="text/css">
+    body {
+        font-family: Arial;
+        font-size: 10pt;
+    }
+
+    .Grid {
+        border: 1px solid #ccc;
+        border-collapse: collapse;
+    }
+
+    .Grid th {
+        background-color: #F7F7F7;
+        font-weight: bold;
+    }
+
+    .Grid th, .Grid td {
+        border: 1px solid #ccc;
+        padding: 5px;
+    }
+
+    .Grid, .Grid table td { border: 0px solid #ccc; }
+
+    .Grid object {
+        cursor: pointer;
+        height: 100px;
+        width: 100px;
+    }
+
+    #dialog object {
+        cursor: pointer;
+        height: 550px;
+        width: 575px;
+    }
+</style>
+@{
+    var i = 0;
+}
+@webGrid.GetHtml(htmlAttributes: new { id = "WebGrid", @class = "Grid" }, columns: webGrid.Columns(webGrid.Column("id", "Image Id"),webGrid.Column("client_data.first_name", "user"), webGrid.Column("Name", "Name"), webGrid.Column("Data", "Image", format: @<text>
+                                                                                                                                                                                                                 @{
+                                                                                                                                                                                                                     var postedFileExtension = Path.GetExtension(item.name);
+                                                                                                                                                                                                                     if (string.Equals(postedFileExtension, ".pdf", StringComparison.OrdinalIgnoreCase))
+                                                                                                                                                                                                                     {
+                                                                                                                                                                                                                         <body>
+                                                                                                                                                                                                                         <a href="data:@item.content_type;base64,@Convert.ToBase64String(item.Data)" target="_blank" name="@item.name">
+                                                                                                                                                                                                                             view
+                                                                                                                                                                                                                         </a>
+                                                                                                                                                                                                                         </body>
+                                                                                                                                                                                                                     }
+                                                                                                                                                                                                                     else
+                                                                                                                                                                                                                     {
+                                                                                                                                                                                                                         <a href="data:@item.content_type;base64,@Convert.ToBase64String(item.Data)" target="_blank">
+                                                                                                                                                                                                                             <object data="data:@item.content_type;base64,@Convert.ToBase64String(item.Data)" type="@item.content_type" width="500px">
+                                                                                                                                                                                                                                 <embed src="data:@item.content_type;base64,@Convert.ToBase64String(item.Data)" type="@item.content_type"/>
+                                                                                                                                                                                                                             </object>
+                                                                                                                                                                                                                         </a>
+                                                                                                                                                                                                                     }
+                                                                                                                                                                                                                 }
+                                                                                                                                                                                                                 
+                                                                                                                                                                                                              </text>)))
